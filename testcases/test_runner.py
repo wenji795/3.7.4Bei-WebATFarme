@@ -18,8 +18,8 @@ class TestRunner:
     #不确定后续是否需要提取
     # all = {}
 
-    @pytest.mark.parametrize("case", data)
-    def test_case(self, case, driver_handler):
+    @pytest.mark.parametrize("case", data)#“让这个测试函数（test_case）重复执行多次，每次传入 data 里的一个元素，命名为 case。”
+    def test_case(self, case, driver_handler):#driver_handler是pytest的fixture参数,从conftest.py来的
 
             # 引用全局的all
             # all = self.all
@@ -35,16 +35,17 @@ class TestRunner:
             # logging.info(f'用例ID：{case["id"]} 模块：{case["feature"]} 场景：{case["story"]} 标题：{case["title"]}')
 
             #创建关键字对象
-            keywords = Keywords(driver_handler)
+            keywords = Keywords(driver_handler)#把浏览器对象传进 Keywords 类了。关键字函数都能通过 self.driver 去控制浏览器；
 
             #执行每一步
             for step in case["steps"]:
                 logging.info(f'步骤: {step}')
                 # 匹配关键字，__getattritubute__(属性名或方法名) -> 返回一个绑定方法 对象类型的数据
-                function_name = keywords.__getattribute__(step["keyword"])
+                # 你不能写死keywords.input(step)，所以你要“根据字符串去拿对象的方法”__getattribute__()。
+                # 结果是拿到了一个“可以调用的函数”function_name
+                function_name = keywords.__getattribute__(step["keyword"])#step["keyword"] 取出来就是字符串，比如 "input"。
                 # print(function_name)
-                # 执行方法
-                # function_name(step["by"], step["value"], step["data"])
+                # 执行ta
                 function_name(step)
 
 

@@ -12,6 +12,10 @@ from selenium.webdriver.chrome.service import Service
 #依赖组合：一个 fixture 可以依赖另一个 fixture
 from utils.driver_utils import get_chrome_driver
 
+
+
+
+#driver_handler → fixture 返回的 driver 对象 → 交给 Keywords → 控制浏览器。
 @pytest.fixture(scope="function")
 def driver_handler():
     driver = get_chrome_driver()
