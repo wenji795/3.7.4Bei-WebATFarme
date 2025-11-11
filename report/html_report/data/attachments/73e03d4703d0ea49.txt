@@ -1,0 +1,21 @@
+INFO     WDM:logger.py:11 ====== WebDriver manager ======
+INFO     WDM:logger.py:11 Get LATEST chromedriver version for google-chrome
+INFO     WDM:logger.py:11 Get LATEST chromedriver version for google-chrome
+INFO     WDM:logger.py:11 Driver [/Users/swj_795/.wdm/drivers/chromedriver/mac64/142.0.7444.61/chromedriver-mac-arm64/chromedriver] found in cache
+INFO     webatf:driver_utils.py:31 ✅ 启动 Chrome 浏览器成功
+INFO     root:test_runner.py:42 步骤: {'step_num': 1, 'step_name': '打开网址', 'keyword': 'open', 'by': None, 'value': None, 'data': 'file:///Users/swj_795/Desktop/%E5%8C%97%E6%A2%A6%E6%B5%8B/pagetest/%E6%B3%A8%E5%86%8C%E5%AE%9E%E4%BE%8B.html', 'index': None}
+INFO     root:keywords_utils.py:19 第1步: 打开网址 - 元素(None, None) - 数据(file:///Users/swj_795/Desktop/%E5%8C%97%E6%A2%A6%E6%B5%8B/pagetest/%E6%B3%A8%E5%86%8C%E5%AE%9E%E4%BE%8B.html) - 索引(None)
+INFO     root:test_runner.py:42 步骤: {'step_num': 2, 'step_name': '输入用户名', 'keyword': 'input', 'by': 'xpath', 'value': '//input', 'data': 'admin', 'index': None}
+INFO     root:keywords_utils.py:19 第2步: 输入用户名 - 元素(xpath, //input) - 数据(admin) - 索引(None)
+INFO     root:test_runner.py:42 步骤: {'step_num': None, 'step_name': '输入密码', 'keyword': 'input', 'by': 'xpath', 'value': "//input[@id='passwordA']", 'data': 123456, 'index': None}
+INFO     root:keywords_utils.py:19 第None步: 输入密码 - 元素(xpath, //input[@id='passwordA']) - 数据(123456) - 索引(None)
+INFO     root:test_runner.py:42 步骤: {'step_num': None, 'step_name': '等待', 'keyword': 'wait', 'by': None, 'value': None, 'data': 2, 'index': None}
+INFO     root:keywords.py:55 第None步: 等待
+INFO     root:test_runner.py:42 步骤: {'step_num': None, 'step_name': '清空密码', 'keyword': 'clear', 'by': 'xpath', 'value': "//input[@id='passwordA']", 'data': None, 'index': None}
+INFO     root:keywords_utils.py:19 第None步: 清空密码 - 元素(xpath, //input[@id='passwordA']) - 数据(None) - 索引(None)
+INFO     root:test_runner.py:42 步骤: {'step_num': None, 'step_name': '等待', 'keyword': 'wait', 'by': None, 'value': None, 'data': 2, 'index': None}
+INFO     root:keywords.py:55 第None步: 等待
+INFO     root:test_runner.py:42 步骤: {'step_num': None, 'step_name': '点击注册按钮', 'keyword': 'click', 'by': 'xpath', 'value': '//button', 'data': None, 'index': None}
+INFO     root:keywords_utils.py:19 第None步: 点击注册按钮 - 元素(xpath, //button) - 数据(None) - 索引(None)
+INFO     root:test_runner.py:42 步骤: {'step_num': 3, 'step_name': '等待', 'keyword': 'wait', 'by': None, 'value': None, 'data': 5, 'index': None}
+INFO     root:keywords.py:55 第3步: 等待
