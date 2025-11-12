@@ -3,6 +3,7 @@
 import logging
 import time
 import allure
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from utils.keywords_utils import kw_step
@@ -18,15 +19,29 @@ class Keywords:
         self.driver = driver
 
     # ================== 基础定位方法 ==================
+    # def find(self, step):
+    #     wait = WebDriverWait(self.driver,10)
+    #     locator = step['by'], step['value']
+    #
+    #     if step["index"] is None:
+    #         return wait.until(EC.presence_of_element_located(locator))#只要元素出现在DOM中就定位
+    #     else:
+    #         return wait.until(EC.presence_of_all_elements_located(locator))[step["index"]]
     def find(self, step):
-        wait = WebDriverWait(self.driver,10)
-        locator = step['by'], step['value']
+        """定位元素"""
+        wait = WebDriverWait(self.driver, timeout=10)
+        locator = step["by"], step["value"]
 
-        if step["index"] is None:
-            return wait.until(EC.presence_of_element_located(locator))#只要元素出现在DOM中就定位
-        else:
-            return wait.until(EC.presence_of_all_elements_located(locator))[step["index"]]
-
+        try:
+            # 如果 index 为 None，则定位单个元素，否则定位一组元素中的某个
+            if step["index"] is None:
+                return wait.until(EC.presence_of_element_located(locator))
+            else:
+                return wait.until(EC.presence_of_all_elements_located(locator))[step["index"]]
+        except TimeoutException:
+            logging.error(f"❌ 元素定位失败，元素定位信息为: {locator}")
+            # 抛出异常给上层调用者（例如 assert_element_exist）
+            raise
     # ================== 核心操作关键字 ==================
     # 每个关键字实际上是对应一个步骤
     @kw_step
@@ -67,14 +82,28 @@ class Keywords:
         logging.info(f"✅ 当前URL: {actual_url} 包含 预期URL: {expected_url}")
 
     @kw_step
-    def assert_url(self, step):
+    def assert_title(self, step):
         """title 断言：实际 title 要包含预期的片段"""
         expected_title = step["data"]
         actual_title = self.driver.title
         assert expected_title in actual_title, f"❌ 当前title: {actual_title} 不包含 预期title: {expected_title}"
 
+    @kw_step
+    def assert_text(self, step):
+        """text 断言：实际 text 要包含预期的片段"""
+        expected_text = step["data"]
+        actual_text = self.find(step).text
+        assert expected_text in actual_text, f"❌ 当前text: {actual_text} 不包含 预期text: {expected_text}"
 
+    @kw_step
+    def assert_alert_text(self, step):
+        alert = self.driver.switch_to.alert  # 切换到 alert 对象
+        expected_text = step['data']
+        actual_text = alert.text
+        assert expected_text in actual_text, f"❌ 当前text: {actual_text} 不包含 预期text: {expected_text}"
 
-
-
-
+    @kw_step
+    def assert_element_exist(self, step):
+        element = self.find(step)
+        assert element, f"❌ 元素不存在: {element}"
+        logging.info(f"✅ 元素存在 {element}")
