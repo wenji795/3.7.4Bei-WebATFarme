@@ -13,7 +13,7 @@ EDGE_DRIVER_PATH = "./driver/"
 HEADLESS = False
 
 # excel个时代测试用例文件配置
-EXCEL_FILE = "./data/3.7_1.xlsx"
+EXCEL_FILE = "./data/3.7_4.xlsx"
 EXCEL_SHEET_NAME = "Sheet1"
 
 # # mysql配置

@@ -63,9 +63,15 @@ class Keywords:
         expected_url = step["data"]            # Excel 里写的期望值
         actual_url = self.driver.current_url   # 浏览器当前的 URL
         # 不包含就抛 AssertionError，pytest 会标红
-        assert expected_url in actual_url, f"❌ 当前URL: {actual_url} 不包含 预期URL: {expected_url}"
+        assert expected_url in actual_url, f"❌ 当前URL: {actual_url} 不包含 预期URL: {expected_url}"#断言结果是true, 继续往下执行输出日志。false就输出f"❌ 当前URL: {actual_url} 不包含 预期URL: {expected_url}"
         logging.info(f"✅ 当前URL: {actual_url} 包含 预期URL: {expected_url}")
 
+    @kw_step
+    def assert_url(self, step):
+        """title 断言：实际 title 要包含预期的片段"""
+        expected_title = step["data"]
+        actual_title = self.driver.title
+        assert expected_title in actual_title, f"❌ 当前title: {actual_title} 不包含 预期title: {expected_title}"
 
 
 
