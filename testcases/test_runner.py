@@ -3,6 +3,7 @@ import sys
 import os
 from jinja2 import Template
 
+from core.assert_keyworks import AssertKeywords
 from core.keywords import Keywords
 from utils.allure_utils import allure_init
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
@@ -36,10 +37,18 @@ class TestRunner:
 
             #创建关键字对象
             keywords = Keywords(driver_handler)#把浏览器对象传进 Keywords 类了。关键字函数都能通过 self.driver 去控制浏览器；
+            assert_keywords = AssertKeywords(driver_handler)
 
             #执行每一步
             for step in case["steps"]:
                 logging.info(f'步骤: {step}')
+                #循环遍历查找关键字
+                for i in [keywords, assert_keywords]:
+                    pass
+                else:
+                    raise AttributeError(f"❌没找到关键字 {step['keyword']}")
+
+
                 # 匹配关键字，__getattritubute__(属性名或方法名) -> 返回一个绑定方法 对象类型的数据
                 # 你不能写死keywords.input(step)，所以你要“根据字符串去拿对象的方法”__getattribute__()。
                 # 结果是拿到了一个“可以调用的函数”function_name
