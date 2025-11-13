@@ -41,7 +41,7 @@ class Keywords:
             logging.error(f"❌ 元素定位失败，元素定位信息为: {locator}")
             # 抛出异常给上层调用者（例如 assert_element_exist）
             raise
-    # ================== 核心操作关键字 ==================
+    # ================== 和操作有关的关键字 ==================
     # 每个关键字实际上是对应一个步骤
     @kw_step
     def open(self, step):
