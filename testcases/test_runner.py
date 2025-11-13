@@ -44,17 +44,23 @@ class TestRunner:
                 logging.info(f'步骤: {step}')
                 #循环遍历查找关键字
                 for i in [keywords, assert_keywords]:
-                    pass
-                else:
+                    #用hasattr判断关键字是否存在
+                    if hasattr(i, step['keyword']):
+                        # 匹配关键字，__getattritubute__(属性名或方法名) -> 返回一个绑定方法 对象类型的数据
+                        # 你不能写死keywords.input(step)，所以你要“根据字符串去拿对象的方法”__getattribute__()。
+                        # 结果是拿到了一个“可以调用的函数”function_name
+                        function_name = keywords.__getattribute__(
+                            step["keyword"])  # step["keyword"] 取出来就是字符串，比如 "input"。
+                        # print(function_name)
+                        # 执行ta
+                        function_name(step)
+
+
+                    break#break是找到了关键字，即跳出循环
+                else:#没找到关键字，报异常
                     raise AttributeError(f"❌没找到关键字 {step['keyword']}")
 
 
-                # 匹配关键字，__getattritubute__(属性名或方法名) -> 返回一个绑定方法 对象类型的数据
-                # 你不能写死keywords.input(step)，所以你要“根据字符串去拿对象的方法”__getattribute__()。
-                # 结果是拿到了一个“可以调用的函数”function_name
-                function_name = keywords.__getattribute__(step["keyword"])#step["keyword"] 取出来就是字符串，比如 "input"。
-                # print(function_name)
-                # 执行ta
-                function_name(step)
+
 
 
